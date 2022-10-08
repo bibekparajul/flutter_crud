@@ -8,7 +8,7 @@ String _description = '';
 String _date = '';
 int _priority = 0;
 
-  Note(this._title,this._date, this._priority,[this._description= 'hello']);
+  Note(this._title,this._date, this._priority,[this._description='']);
   
   
   Note.withId(this._id,this._title,this._date,this._priority,this._description);

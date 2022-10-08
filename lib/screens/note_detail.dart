@@ -52,7 +52,8 @@ class NoteDetailState extends State<NoteDetail> {
       child: 
     Scaffold(
       appBar: AppBar(
-        title: Text(appBarTitle),
+        backgroundColor: Theme.of(context).canvasColor,
+        title: Center(child: Text(appBarTitle, style: TextStyle(color: Theme.of(context).accentColor),)),
         leading: IconButton(icon: Icon(Icons.arrow_back,),
         onPressed: (){
           moveToLastScreen();
@@ -60,24 +61,26 @@ class NoteDetailState extends State<NoteDetail> {
       
       ),
       body: Padding(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(8),
         child: ListView(
           children: <Widget>[
             ListTile(
-              title: DropdownButton(
-                items: _priorities.map((String dropDownStringItem) {
-                  return DropdownMenuItem<String>(
-                    value: dropDownStringItem,
-                    child: Text(dropDownStringItem),
-                  );
-                }).toList(),
-                value: getPriorityAsString(note.priority),
-                onChanged: (valueSelectedByUser) {
-                  setState(() {
-                    // print("User selected $valueSelectedByUser");
-                    updatePriorityAsInt(valueSelectedByUser!);
-                  });
-                },
+              title: Center(
+                child: DropdownButton(
+                  items: _priorities.map((String dropDownStringItem) {
+                    return DropdownMenuItem<String>(
+                      value: dropDownStringItem,
+                      child: Text(dropDownStringItem),
+                    );
+                  }).toList(),
+                  value: getPriorityAsString(note.priority),
+                  onChanged: (valueSelectedByUser) {
+                    setState(() {
+                      // print("User selected $valueSelectedByUser");
+                      updatePriorityAsInt(valueSelectedByUser!);
+                    });
+                  },
+                ),
               ),
             ),
 
@@ -87,7 +90,7 @@ class NoteDetailState extends State<NoteDetail> {
               child: TextField(
                 controller: titleController,
                 onChanged: (value) {
-                  print("TitleTextField");
+                  
                   updateTitle();
                 },
                 decoration: InputDecoration(
@@ -102,7 +105,7 @@ class NoteDetailState extends State<NoteDetail> {
               child: TextField(
                 controller: descriptionController,
                 onChanged: (value) {
-                  print("descTextField");
+                  
                   updateDescription();
                 },
                 decoration: InputDecoration(
@@ -110,6 +113,9 @@ class NoteDetailState extends State<NoteDetail> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0))),
               ),
+            ),
+            SizedBox(
+              height: 20,
             ),
 
 //For the button
@@ -142,7 +148,7 @@ class NoteDetailState extends State<NoteDetail> {
                         "Delete",
                         textScaleFactor: 1.5,
                       ),
-                      style: ElevatedButton.styleFrom(primary: Colors.green),
+                      style: ElevatedButton.styleFrom(primary: Colors.red),
                       onPressed: () {
                         setState(() {
                           print("DeleteClicked");
@@ -215,9 +221,9 @@ class NoteDetailState extends State<NoteDetail> {
 		}
 
 		if (result != 0) {  // Success
-			_showAlertDialog('Status', 'Note Saved Successfully');
+			_showAlertDialog('Status', 'Note Saved');
 		} else {  // Failure
-			_showAlertDialog('Status', 'Problem Saving Note');
+			_showAlertDialog('Status', 'No Notes Saved');
 		}
 }
 
